@@ -1,0 +1,7 @@
+{
+  "name": "aoneko-move 2 Real",
+  "description": "A Japanese market-focused delivery application clone featuring quick quotes, vehicle selection (Kei-van/Kei-truck), real-time tracking, and driver dashboards.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
