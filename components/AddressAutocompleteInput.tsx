@@ -28,7 +28,7 @@ const AddressAutocompleteInput: React.FC<AddressAutocompleteInputProps> = ({
   const [isLocating, setIsLocating] = useState(false);
   const [isApiLoaded, setIsApiLoaded] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [recentSearches, setRecentSearches] = useState<{address: string, latLng?: LatLng}[]>([]);
+  const [recentSearches, setRecentSearches] = useState<{ address: string, latLng?: LatLng }[]>([]);
 
   // Load recent searches on mount
   useEffect(() => {
@@ -68,7 +68,7 @@ const AddressAutocompleteInput: React.FC<AddressAutocompleteInputProps> = ({
               lat: place.geometry.location.lat(),
               lng: place.geometry.location.lng()
             } : undefined;
-            
+
             onChange(addr);
             if (ll && onSelectLatLng) {
               onSelectLatLng(ll);
@@ -138,93 +138,99 @@ const AddressAutocompleteInput: React.FC<AddressAutocompleteInputProps> = ({
     e.stopPropagation();
     onChange('');
     if (inputRef.current) {
-        inputRef.current.value = '';
-        inputRef.current.focus();
+      inputRef.current.value = '';
+      inputRef.current.focus();
     }
   };
 
-  const handleRecentClick = (item: {address: string, latLng?: LatLng}) => {
-      onChange(item.address);
-      if (item.latLng && onSelectLatLng) {
-          onSelectLatLng(item.latLng);
-      }
-      setIsFocused(false);
+  const handleRecentClick = (item: { address: string, latLng?: LatLng }) => {
+    onChange(item.address);
+    if (item.latLng && onSelectLatLng) {
+      onSelectLatLng(item.latLng);
+    }
+    setIsFocused(false);
   };
 
   return (
     <div className="relative group w-full">
       <div className="flex items-center gap-4">
-         <div className={`w-12 h-12 rounded-2xl border shadow-soft flex-shrink-0 flex items-center justify-center font-bold z-10 transition-all duration-300 transform group-hover:scale-110 ${iconBgColor} ${iconColor} border-white ring-4 ring-slate-50`}>
-            {markerLabel || <MapPin size={20} />}
-         </div>
-         
-         <div className="flex-1 relative">
-           <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-[0.15em] pl-1 flex justify-between items-center">
-              <span>{label}</span>
-              {isApiLoaded && (
-                  <button 
-                    onClick={handleGeolocation}
-                    disabled={isLocating}
-                    className="flex items-center gap-1.5 text-brand-600 hover:text-brand-700 transition-all active:scale-95 text-[10px] bg-brand-50 px-2.5 py-1 rounded-full border border-brand-100 font-bold"
-                  >
-                    {isLocating ? <Loader2 size={10} className="animate-spin" /> : <Navigation size={10} />}
-                    現在地
-                  </button>
-              )}
-           </label>
-           
-           <div className="relative">
-             <input
+        <div className={`w-12 h-12 rounded-2xl border shadow-soft flex-shrink-0 flex items-center justify-center font-bold z-10 transition-all duration-300 transform group-hover:scale-110 ${iconBgColor} ${iconColor} border-white ring-4 ring-slate-50`}>
+          {markerLabel || <MapPin size={20} />}
+        </div>
+
+        <div className="flex-1 relative">
+          <label className="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase tracking-[0.15em] pl-1 flex justify-between items-center">
+            <span>{label}</span>
+            {isApiLoaded && (
+              <button
+                onClick={handleGeolocation}
+                disabled={isLocating}
+                className="flex items-center gap-1.5 text-brand-600 hover:text-brand-700 transition-all active:scale-95 text-[10px] bg-brand-50 px-2.5 py-1 rounded-full border border-brand-100 font-bold"
+              >
+                {isLocating ? <Loader2 size={10} className="animate-spin" /> : <Navigation size={10} />}
+                現在地
+              </button>
+            )}
+          </label>
+
+          <div className="relative">
+            <input
               ref={inputRef}
               type="text"
               value={value}
+              autoComplete="off"
+              autoCapitalize="off"
+              spellCheck="false"
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => {
+                const newVal = e.target.value;
+                onChange(newVal);
+              }}
               placeholder={placeholder || "住所を入力..."}
               className="w-full pl-11 pr-10 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-brand-100 focus:border-brand-400 outline-none transition-all text-slate-700 placeholder-slate-400 text-sm shadow-sm group-hover:bg-white group-hover:border-slate-300"
             />
-            
+
             <div className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-slate-300 pointer-events-none group-focus-within:text-brand-500 transition-colors">
-                <Search size={18} />
+              <Search size={18} />
             </div>
 
             {value && (
-                <button 
-                    onClick={handleClear}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-slate-300 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-all"
-                >
-                    <X size={16} />
-                </button>
+              <button
+                onClick={handleClear}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-slate-300 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-all"
+              >
+                <X size={16} />
+              </button>
             )}
 
             {/* Recent Searches Dropdown */}
             {isFocused && !value && recentSearches.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-[60] animate-fade-in-up">
-                    <div className="p-3 bg-slate-50/50 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                        <History size={12} /> 最近の検索
-                    </div>
-                    {recentSearches.map((item, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => handleRecentClick(item)}
-                            className="w-full text-left px-4 py-3.5 hover:bg-brand-50 transition-colors flex items-center gap-3 border-b border-slate-50 last:border-0"
-                        >
-                            <div className="p-1.5 bg-slate-100 rounded-lg text-slate-400">
-                                <MapPin size={14} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm text-slate-700 truncate font-medium">{item.address}</p>
-                            </div>
-                        </button>
-                    ))}
-                    <button className="w-full text-center py-2 text-[10px] text-brand-600 font-bold hover:bg-brand-50">
-                        すべて表示
-                    </button>
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-[60] animate-fade-in-up">
+                <div className="p-3 bg-slate-50/50 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                  <History size={12} /> 最近の検索
                 </div>
+                {recentSearches.map((item, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleRecentClick(item)}
+                    className="w-full text-left px-4 py-3.5 hover:bg-brand-50 transition-colors flex items-center gap-3 border-b border-slate-50 last:border-0"
+                  >
+                    <div className="p-1.5 bg-slate-100 rounded-lg text-slate-400">
+                      <MapPin size={14} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-slate-700 truncate font-medium">{item.address}</p>
+                    </div>
+                  </button>
+                ))}
+                <button className="w-full text-center py-2 text-[10px] text-brand-600 font-bold hover:bg-brand-50">
+                  すべて表示
+                </button>
+              </div>
             )}
-           </div>
-         </div>
+          </div>
+        </div>
       </div>
     </div>
   );

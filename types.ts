@@ -48,6 +48,8 @@ export interface QuoteResponse {
   cargoSurcharge: number; // New: Fee for extra boxes/suitcases
   tollFee: number; // New: Highway tolls
   totalPrice: number;
+  tax?: number;      // Added tax field
+  subTotal?: number; // Added subtotal field
   estimatedDistance: number;
   estimatedTime: number;
 }
@@ -71,13 +73,13 @@ export interface Driver extends User {
   totalRides: number;
 }
 
-export type DeliveryStatus = 
-  | 'pending' 
-  | 'searching_driver' 
-  | 'accepted' 
-  | 'pickup_in_progress' 
-  | 'in_transit' 
-  | 'delivered' 
+export type DeliveryStatus =
+  | 'pending'
+  | 'searching_driver'
+  | 'accepted'
+  | 'pickup_in_progress'
+  | 'in_transit'
+  | 'delivered'
   | 'cancelled';
 
 export interface DeliveryTimelineEvent {
