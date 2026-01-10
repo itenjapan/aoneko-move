@@ -1,0 +1,54 @@
+/* 
+ * Japanese Simplicity & Radical Transparency 
+ * Dedicated styles for the Aoneko Move aesthetic.
+ */
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--slate-50);
+}
+
+.japanese-card {
+    background-color: white;
+    border-radius: 2.5rem;
+    padding: 2.5rem;
+    border: 1px solid var(--slate-100);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.japanese-card:hover {
+    border-color: var(--brand-primary);
+    box-shadow: var(--shadow-soft);
+}
+
+.text-transparent-radical {
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+.tracking-japanese {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Scrollbar styling for high-end feel */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--slate-50);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--slate-200);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-secondary);
+}

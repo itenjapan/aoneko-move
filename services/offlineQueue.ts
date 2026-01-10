@@ -1,6 +1,6 @@
 
 import { mockStore } from './mockDb';
-import { DeliveryStatus } from '../types';
+import { DeliveryStatus } from '../types/Order';
 
 export interface QueuedAction {
   id: string;
@@ -47,7 +47,7 @@ export const OfflineQueue = {
     for (const action of queue) {
       try {
         // Simulate network latency for sync
-        await new Promise(resolve => setTimeout(resolve, 300)); 
+        await new Promise(resolve => setTimeout(resolve, 300));
 
         switch (action.type) {
           case 'UPDATE_STATUS':

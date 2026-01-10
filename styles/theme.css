@@ -1,0 +1,64 @@
+:root {
+  /* Brand Colors - Aoneko Move */
+  --brand-primary: #1A56DB;
+  --brand-primary-hover: #1e429f;
+  --brand-secondary: #6B7280;
+  --brand-white: #FFFFFF;
+
+  /* Slate Tones */
+  --slate-50: #F9FAFB;
+  --slate-100: #F3F4F6;
+  --slate-200: #E5E7EB;
+  --slate-400: #94a3b8;
+  --slate-500: #6B7280;
+  --slate-600: #475569;
+  --slate-800: #1e293b;
+  --slate-900: #111827;
+  --slate-950: #030712;
+
+  /* Accent Colors */
+  --accent-blue: #38bdf8;
+  --accent-indigo: #6366f1;
+  --accent-emerald: #10b981;
+  --accent-orange: #f97316;
+  --accent-rose: #f43f5e;
+
+  /* Shadows */
+  --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-brand: 0 20px 25px -5px rgba(26, 86, 219, 0.1), 0 8px 10px -6px rgba(26, 86, 219, 0.1);
+  --shadow-sacred: 0 0 50px -12px rgba(56, 189, 248, 0.3);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sacred-glow {
+  box-shadow: var(--shadow-sacred);
+}
+
+.bg-brand {
+  background-color: var(--brand-primary);
+}
+
+.text-brand {
+  color: var(--brand-primary);
+}
+
+.border-brand {
+  border-color: var(--brand-primary);
+}
+
+.bg-japanese-white {
+  background-color: var(--brand-white);
+}

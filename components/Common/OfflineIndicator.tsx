@@ -20,10 +20,16 @@ const OfflineIndicator: React.FC = () => {
   if (isOnline) return null;
 
   return (
-    <div className="bg-amber-500 text-white text-center py-2 px-4 z-50 relative animate-fade-in">
-      <div className="flex items-center justify-center gap-2 text-sm font-bold">
-        <WifiOff size={16} />
-        <span>オフラインモード - 一部機能が制限されています</span>
+    <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[60] animate-fade-in-up">
+      <div className="glass-dark px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-amber-500/30">
+        <div className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+        </div>
+        <WifiOff size={18} className="text-amber-400" />
+        <span className="text-white text-sm font-bold tracking-tight">
+          オフラインモード - 地域データを表示中
+        </span>
       </div>
     </div>
   );

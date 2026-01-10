@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User, Driver } from '../types';
+import { User, Driver } from '../types/User';
 import { mockStore } from '../services/mockDb';
 
 interface AuthContextType {
@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       // Register via mockStore
       const newUser = mockStore.register(name, email, password);
-      
+
       const { password: _, ...userWithoutPass } = newUser;
       setUser(userWithoutPass);
       localStorage.setItem('currentUser', JSON.stringify(userWithoutPass));
@@ -68,17 +68,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await new Promise(resolve => setTimeout(resolve, 800));
 
     try {
-        const newUser = mockStore.register(name, email, password, 'driver', {
-            phone,
-            vehicleType,
-            licensePlate
-        });
-        const { password: _, ...userWithoutPass } = newUser;
-        setUser(userWithoutPass);
-        localStorage.setItem('currentUser', JSON.stringify(userWithoutPass));
+      const newUser = mockStore.register(name, email, password, 'driver', {
+        phone,
+        vehicleType,
+        licensePlate
+      });
+      const { password: _, ...userWithoutPass } = newUser;
+      setUser(userWithoutPass);
+      localStorage.setItem('currentUser', JSON.stringify(userWithoutPass));
     } catch (e: any) {
-        setIsLoading(false);
-        throw e;
+      setIsLoading(false);
+      throw e;
     }
     setIsLoading(false);
   };
@@ -86,12 +86,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateProfile = async (data: Partial<User | Driver>) => {
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 500)); // Sim delay
-    
+
     if (user) {
-        const updatedUser = { ...user, ...data } as User;
-        mockStore.updateUser(updatedUser);
-        setUser(updatedUser);
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+      const updatedUser = { ...user, ...data } as User;
+      mockStore.updateUser(updatedUser);
+      setUser(updatedUser);
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
     }
     setIsLoading(false);
   };

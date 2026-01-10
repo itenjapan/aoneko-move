@@ -1,0 +1,1 @@
+export { ConfirmationEmailTemplate } from './ConfirmationEmailTemplate';

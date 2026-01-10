@@ -2,13 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { mockStore } from '../services/mockDb';
 import { Search, Phone, User, Truck, MapPin, Clock, Loader2, CheckCircle, WifiOff, MessageCircle, AlertTriangle, Activity } from 'lucide-react';
-import { Delivery, DeliveryStatus, LatLng, Driver } from '../types';
-import DeliveryMap from '../components/DeliveryMap';
+import { Delivery, DeliveryStatus, LatLng } from '../types/Order';
+import { Driver } from '../types/User';
+import { DeliveryMap } from '../components/Route';
 import { connectTracking, disconnectTracking, getEstimatedRoute, TrackingUpdate, TrafficCondition } from '../services/liveTrackingService';
 import { useAuth } from '../contexts/AuthContext';
-import ChatInterface from '../components/ChatInterface';
+import { ChatInterface } from '../components/Chat';
 
-import { supabase } from '../services/supabase';
+import { supabase } from '../services/supabase/client';
 
 const TrackDelivery: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -124,7 +125,7 @@ const TrackDelivery: React.FC = () => {
               total: data.total_customer_price,
               breakdown: {
                 base: data.base_fare,
-                distance: 0, // Not stored separately but net_price roughly
+                distance: Math.round(data.distance_km * 400),
                 surcharges: data.loading_fee,
                 tolls: data.highway_toll
               }

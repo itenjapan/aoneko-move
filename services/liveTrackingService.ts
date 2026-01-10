@@ -1,5 +1,5 @@
 // services/liveTrackingService.ts
-import { DeliveryStatus, LatLng } from '../types';
+import { DeliveryStatus, LatLng } from '../types/Order';
 import { mockStore } from './mockDb';
 
 export type TrafficCondition = 'clear' | 'moderate' | 'heavy';
@@ -55,7 +55,7 @@ export function connectTracking(
   }
 
   // Use a route from the stored pickup to delivery for fallback simulation
-  const route = generateRoute(delivery.pickup.latLng, delivery.delivery.latLng, 120); 
+  const route = generateRoute(delivery.pickup.latLng, delivery.delivery.latLng, 120);
 
   // Simulate a random traffic condition for this session
   const rand = Math.random();
@@ -64,50 +64,50 @@ export function connectTracking(
   const pollStatusAndLocation = () => {
     // 1. Fetch fresh data from the store to check for status updates from DriverApp
     const currentDelivery = mockStore.getDelivery(trackingNumber);
-    
+
     if (!currentDelivery) {
-        disconnectTracking(trackingNumber);
-        onClose();
-        return;
+      disconnectTracking(trackingNumber);
+      onClose();
+      return;
     }
 
     const actualStatus: DeliveryStatus = currentDelivery.status;
 
     // 2. Check if there is a "Real" live location set by the DriverApp
     const driverLiveLoc = mockStore.getDriverLiveLocation(trackingNumber);
-    
+
     let currentLatLng: LatLng;
     let tracker = activeTrackings.get(trackingNumber);
-      
+
     // Initialize tracker state if missing
     if (!tracker) {
-        tracker = { 
-            intervalId: 0, 
-            route, 
-            currentIndex: 0, 
-            totalSteps: route.length,
-            trafficCongestion
-        };
-        activeTrackings.set(trackingNumber, tracker);
+      tracker = {
+        intervalId: 0,
+        route,
+        currentIndex: 0,
+        totalSteps: route.length,
+        trafficCongestion
+      };
+      activeTrackings.set(trackingNumber, tracker);
     }
 
     // 3. Determine which location to send
     if (driverLiveLoc && (actualStatus === 'pickup_in_progress' || actualStatus === 'in_transit' || actualStatus === 'accepted')) {
       currentLatLng = driverLiveLoc;
-      
+
       // Sync simulation index to real location
       if (tracker && actualStatus === 'in_transit') {
-         let minDesc = Infinity;
-         let bestIndex = tracker.currentIndex;
-         
-         tracker.route.forEach((pt, idx) => {
-             const d = Math.pow(pt.lat - driverLiveLoc.lat, 2) + Math.pow(pt.lng - driverLiveLoc.lng, 2);
-             if (d < minDesc) {
-                 minDesc = d;
-                 bestIndex = idx;
-             }
-         });
-         tracker.currentIndex = bestIndex;
+        let minDesc = Infinity;
+        let bestIndex = tracker.currentIndex;
+
+        tracker.route.forEach((pt, idx) => {
+          const d = Math.pow(pt.lat - driverLiveLoc.lat, 2) + Math.pow(pt.lng - driverLiveLoc.lng, 2);
+          if (d < minDesc) {
+            minDesc = d;
+            bestIndex = idx;
+          }
+        });
+        tracker.currentIndex = bestIndex;
       }
 
     } else if (actualStatus === 'delivered') {
@@ -117,7 +117,7 @@ export function connectTracking(
       // FALLBACK: Simulate movement
       if (actualStatus === 'in_transit') {
         if (tracker.currentIndex < tracker.route.length - 1) {
-            tracker.currentIndex++;
+          tracker.currentIndex++;
         }
         currentLatLng = tracker.route[tracker.currentIndex];
       } else if (actualStatus === 'pickup_in_progress') {
@@ -130,37 +130,37 @@ export function connectTracking(
     // 4. Calculate Dynamic ETA based on distance remaining and traffic
     let remainingMinutes = 0;
     if (actualStatus === 'in_transit') {
-        const remainingSteps = tracker.totalSteps - tracker.currentIndex;
-        const baseMinutesPerStep = 0.5; // Roughly 30 seconds per step in simulation
-        
-        let trafficMultiplier = 1;
-        if (trafficCongestion === 'moderate') trafficMultiplier = 1.3;
-        if (trafficCongestion === 'heavy') trafficMultiplier = 1.8;
+      const remainingSteps = tracker.totalSteps - tracker.currentIndex;
+      const baseMinutesPerStep = 0.5; // Roughly 30 seconds per step in simulation
 
-        remainingMinutes = Math.ceil(remainingSteps * baseMinutesPerStep * trafficMultiplier);
+      let trafficMultiplier = 1;
+      if (trafficCongestion === 'moderate') trafficMultiplier = 1.3;
+      if (trafficCongestion === 'heavy') trafficMultiplier = 1.8;
+
+      remainingMinutes = Math.ceil(remainingSteps * baseMinutesPerStep * trafficMultiplier);
     } else if (actualStatus === 'pickup_in_progress') {
-        remainingMinutes = currentDelivery.estimatedTime; // Fallback to initial estimate
+      remainingMinutes = currentDelivery.estimatedTime; // Fallback to initial estimate
     }
-    
+
     // 5. Send Update
-    onMessage({ 
-        lat: currentLatLng.lat, 
-        lng: currentLatLng.lng, 
-        status: actualStatus,
-        remainingMinutes,
-        trafficCondition: trafficCongestion
+    onMessage({
+      lat: currentLatLng.lat,
+      lng: currentLatLng.lng,
+      status: actualStatus,
+      remainingMinutes,
+      trafficCondition: trafficCongestion
     });
-    
+
     // 6. Auto-disconnect if finished
     if (actualStatus === 'delivered' || actualStatus === 'cancelled') {
       if (activeTrackings.has(trackingNumber)) {
-          // Keep connected briefly
+        // Keep connected briefly
       }
     }
   };
 
   // Poll every 2 seconds
-  const intervalId = window.setInterval(pollStatusAndLocation, 2000); 
+  const intervalId = window.setInterval(pollStatusAndLocation, 2000);
 
   activeTrackings.set(trackingNumber, {
     intervalId,
@@ -182,9 +182,9 @@ export function disconnectTracking(trackingNumber: string) {
 }
 
 export function getEstimatedRoute(trackingNumber: string): LatLng[] | undefined {
-    const delivery = mockStore.getDelivery(trackingNumber);
-    if (delivery) {
-      return generateRoute(delivery.pickup.latLng, delivery.delivery.latLng);
-    }
-    return undefined;
+  const delivery = mockStore.getDelivery(trackingNumber);
+  if (delivery) {
+    return generateRoute(delivery.pickup.latLng, delivery.delivery.latLng);
+  }
+  return undefined;
 }

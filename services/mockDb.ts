@@ -1,11 +1,12 @@
-import { Delivery, User, Driver, DeliveryStatus, LatLng, ChatMessage } from '../types';
+import { Delivery, DeliveryStatus, LatLng, ChatMessage } from '../types/Order';
+import { User, Driver } from '../types/User';
 
 // In-memory store for the session with localStorage persistence
 class MockStore {
   deliveries: Delivery[] = [];
   users: (User | Driver)[] = []; // Store users for auth
   messages: ChatMessage[] = []; // Store chat messages
-  
+
   // Mock driver (Initial/Default driver data)
   defaultDriver: Driver = {
     id: 'driver-1',
@@ -39,7 +40,7 @@ class MockStore {
   };
 
   private driverLiveLocation: Map<string, LatLng> = new Map();
-  private driverEarnings: Map<string, number> = new Map(); 
+  private driverEarnings: Map<string, number> = new Map();
 
   constructor() {
     this.loadData();
@@ -135,11 +136,11 @@ class MockStore {
         }
       ];
       this.deliveries = sampleJobs;
-      
+
       // Update cumulative earnings
-      const total = sampleJobs.reduce((acc, job) => acc + Math.floor(job.price.total * 0.85), 0);
+      const total = sampleJobs.reduce((acc, job) => acc + Math.floor(job.price.total * 0.80), 0);
       this.driverEarnings.set('driver-1', total);
-      
+
       this.saveData();
     }
   }
@@ -181,16 +182,16 @@ class MockStore {
     }
     let newUser: User | Driver;
     if (userType === 'driver' && additionalData) {
-        newUser = {
-            id: 'driver-' + Math.random().toString(36).substr(2, 9),
-            name, email, password, userType: 'driver',
-            phone: additionalData.phone || '',
-            vehicleType: additionalData.vehicleType || 'keivan',
-            licensePlate: additionalData.licensePlate || '',
-            isOnline: false, rating: 5.0, totalRides: 0
-        } as Driver;
+      newUser = {
+        id: 'driver-' + Math.random().toString(36).substr(2, 9),
+        name, email, password, userType: 'driver',
+        phone: additionalData.phone || '',
+        vehicleType: additionalData.vehicleType || 'keivan',
+        licensePlate: additionalData.licensePlate || '',
+        isOnline: false, rating: 5.0, totalRides: 0
+      } as Driver;
     } else {
-        newUser = { id: 'user-' + Math.random().toString(36).substr(2, 9), name, email, password, userType, phone: '' };
+      newUser = { id: 'user-' + Math.random().toString(36).substr(2, 9), name, email, password, userType, phone: '' };
     }
     this.users.push(newUser);
     this.saveData();
@@ -210,7 +211,7 @@ class MockStore {
   }
 
   getAllDrivers(): Driver[] {
-      return this.users.filter(u => u.userType === 'driver') as Driver[];
+    return this.users.filter(u => u.userType === 'driver') as Driver[];
   }
 
   private generateMockLatLng(): LatLng {
@@ -260,38 +261,38 @@ class MockStore {
       delivery.status = 'accepted';
       if (!delivery.timeline.some(t => t.status === 'accepted')) {
         delivery.timeline.push({
-            status: 'accepted',
-            description: 'ドライバーが決定しました',
-            time: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
+          status: 'accepted',
+          description: 'ドライバーが決定しました',
+          time: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
         });
       }
       this.saveData();
     }
     return delivery;
   }
-  
+
   completeJob(deliveryId: string): Delivery | undefined {
-     const delivery = this.deliveries.find(d => d.id === deliveryId);
-     if(delivery && delivery.driverId) {
-         delivery.status = 'delivered';
-         if (!delivery.timeline.some(t => t.status === 'delivered')) {
-             delivery.timeline.push({
-                 status: 'delivered',
-                 description: '配送完了',
-                 time: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
-             });
-             const earningsAmount = Math.floor(delivery.price.total * 0.85);
-             this.addDriverEarnings(delivery.driverId, earningsAmount);
-             const driver = this.getUserById(delivery.driverId) as Driver;
-             if (driver) {
-                 driver.totalRides = (driver.totalRides || 0) + 1;
-                 this.updateUser(driver);
-             }
-             this.driverLiveLocation.delete(delivery.trackingNumber);
-         }
-         this.saveData();
-     }
-     return delivery;
+    const delivery = this.deliveries.find(d => d.id === deliveryId);
+    if (delivery && delivery.driverId) {
+      delivery.status = 'delivered';
+      if (!delivery.timeline.some(t => t.status === 'delivered')) {
+        delivery.timeline.push({
+          status: 'delivered',
+          description: '配送完了',
+          time: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
+        });
+        const earningsAmount = Math.floor(delivery.price.total * 0.80);
+        this.addDriverEarnings(delivery.driverId, earningsAmount);
+        const driver = this.getUserById(delivery.driverId) as Driver;
+        if (driver) {
+          driver.totalRides = (driver.totalRides || 0) + 1;
+          this.updateUser(driver);
+        }
+        this.driverLiveLocation.delete(delivery.trackingNumber);
+      }
+      this.saveData();
+    }
+    return delivery;
   }
 
   setDriverLiveLocation(trackingNumber: string, latLng: LatLng) {
@@ -302,7 +303,7 @@ class MockStore {
   getDriverLiveLocation(trackingNumber: string): LatLng | undefined {
     return this.driverLiveLocation.get(trackingNumber);
   }
-  
+
   getDriverLocationById(driverId: string): LatLng | undefined {
     return { lat: 35.1815, lng: 136.9064 };
   }
@@ -319,7 +320,7 @@ class MockStore {
         case 'delivered': description = '配送完了しました'; break;
         case 'cancelled': description = '配送がキャンセルされました'; break;
         case 'searching_driver': description = 'ドライバーを探しています'; break;
-        case 'pending': description = '注文を受け付けました'; break; 
+        case 'pending': description = '注文を受け付けました'; break;
       }
       delivery.timeline.push({
         status: newStatus,
