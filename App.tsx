@@ -25,7 +25,7 @@ function App() {
     const loadGoogleMaps = () => {
       const scriptId = 'google-maps-script';
       // Use the API key provided by the environment
-      const apiKey = process.env.API_KEY;
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
       // Ensure we have a valid key format before attempting to load
       const isInvalidKey = !apiKey ||
@@ -35,7 +35,7 @@ function App() {
         apiKey.includes('YOUR_');
 
       if (isInvalidKey) {
-        console.warn('Google Maps API key is missing or invalid in process.env.API_KEY. Map-based features will be disabled.');
+        console.warn('Google Maps API key is missing or invalid. Map-based features will be disabled.');
         return;
       }
 
