@@ -1,30 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { mockStore } from '../services/mockDb';
-import { StatsCard } from '../components/Admin/StatsCard';
-import { UsersTable } from '../components/Admin/UsersTable';
-import { LogisticsViewer } from '../components/Admin/LogisticsViewer';
-import { Users, Truck, Package, Activity } from 'lucide-react';
-import { User, Driver } from '../types/User';
-import { Delivery } from '../types/Order';
+import { supabase } from '../services/supabase/client';
+import { Users, Shield } from 'lucide-react';
 
 const AdminDashboard: React.FC = () => {
-    const { user, updateAuth, isLoading: authLoading } = useAuth();
+    const { user, isLoading: authLoading } = useAuth();
     const navigate = useNavigate();
     const [stats, setStats] = useState({
         totalUsers: 0,
-        onlineUsers: 0,
-        totalOrders: 0
     });
-    const [users, setUsers] = useState<(User | Driver)[]>([]);
-    const [filteredUsers, setFilteredUsers] = useState<(User | Driver)[]>([]);
-    const [orders, setOrders] = useState<Delivery[]>([]);
-    const [filterType, setFilterType] = useState<'all' | 'customer' | 'driver'>('all');
-
-    const [isAdminSettingsOpen, setIsAdminSettingsOpen] = useState(false);
-    const [newEmail, setNewEmail] = useState('');
-    const [newPassword, setNewPassword] = useState('');
+    const [profiles, setProfiles] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         // Phase 1: Security & Super-Admin Check
@@ -36,157 +23,157 @@ const AdminDashboard: React.FC = () => {
         }
     }, [user, authLoading, navigate]);
 
+    const fetchProfiles = async () => {
+        if (user?.email !== 'aoneko.move@gmail.com') return;
+        
+        try {
+            // "Tabla Sin Filtros: Usa supabase.from('profiles').select('*')"
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+
+            if (data) {
+                setProfiles(data);
+                setStats({ totalUsers: data.length });
+            }
+        } catch (error: any) {
+            console.error('Error fetching profiles:', error);
+            // Don't alert on every interval tick if it fails, just log
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        // Phase 2: Load Data
-        const loadData = () => {
-            const allUsers = mockStore.getAllUsers();
-            const allOrders = mockStore.deliveries;
-
-            // Calculate stats
-            const totalUsers = allUsers.length;
-            const onlineUsers = allUsers.filter(u => u.userType === 'driver' && (u as Driver).isOnline).length + 1; // +1 for current admin
-            const totalOrders = allOrders.length;
-
-            setStats({ totalUsers, onlineUsers, totalOrders });
-            setUsers(allUsers);
-            setOrders(allOrders);
-        };
-
         if (user?.email === 'aoneko.move@gmail.com') {
-            loadData();
-            const interval = setInterval(loadData, 5000);
+            fetchProfiles();
+            const interval = setInterval(fetchProfiles, 5000); // Live updates
             return () => clearInterval(interval);
         }
     }, [user]);
 
-    useEffect(() => {
-        if (filterType === 'all') {
-            setFilteredUsers(users);
-        } else {
-            setFilteredUsers(users.filter(u => u.userType === filterType));
-        }
-    }, [filterType, users]);
-
-    const handleUpdateAdmin = async () => {
-        if (!newEmail && !newPassword) return;
-        const confirmUpdate = window.confirm('管理者情報を更新しますか？\nAre you sure you want to update admin credentials?');
-        if (!confirmUpdate) return;
+    const makeAdmin = async (userId: string) => {
+        // "Lógica del Botón: Al hacer clic, debe ejecutar: supabase.from('profiles').update({ role: 'admin' }).eq('id', userId)."
+        if (!window.confirm('このユーザーを管理者にしますか？\nAre you sure you want to promote this user to Admin?')) return;
 
         try {
-            await updateAuth({
-                email: newEmail || undefined,
-                password: newPassword || undefined
-            });
-            alert('管理者情報を更新しました。\nAdmin credentials updated successfully.');
-            setNewEmail('');
-            setNewPassword('');
-            setIsAdminSettingsOpen(false);
-        } catch (error) {
-            alert('更新に失敗しました。');
+            const { error } = await supabase
+                .from('profiles')
+                .update({ role: 'admin' })
+                .eq('id', userId);
+
+            if (error) throw error;
+
+            alert('管理者に変更しました。\nUser promoted to Admin!');
+            fetchProfiles(); // Refresh list immediately
+        } catch (error: any) {
+            alert('Failed to update role: ' + error.message);
         }
     };
 
-    if (authLoading || !user) return <div className="min-h-screen flex items-center justify-center">Loading Admin Panel...</div>;
+    if (authLoading || (isLoading && !profiles.length)) {
+        return <div className="min-h-screen flex items-center justify-center font-bold text-slate-500">Loading Admin God Mode...</div>;
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 pb-20">
             {/* Header */}
             <div className="bg-slate-900 text-white pt-20 pb-24 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div>
-                        <div className="flex items-center gap-4 mb-2">
-                            <div className="p-3 bg-white/10 rounded-2xl backdrop-blur-sm">
-                                <Activity size={24} className="text-brand-400" />
-                            </div>
-                            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-                        </div>
-                        <p className="text-slate-400 max-w-2xl text-lg">
-                            Aoneko Move 統合管理システム
-                        </p>
+                <div className="max-w-7xl mx-auto flex items-center gap-4">
+                    <div className="p-3 bg-red-600 rounded-2xl shadow-lg shadow-red-900/20">
+                        <Shield size={32} className="text-white" />
                     </div>
-                    <button
-                        onClick={() => setIsAdminSettingsOpen(!isAdminSettingsOpen)}
-                        className="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 rounded-xl font-bold transition-colors flex items-center gap-2"
-                    >
-                        Admin Settings
-                    </button>
+                    <div>
+                        <h1 className="text-3xl font-bold">Admin God Mode</h1>
+                        <p className="text-slate-400">Database Direct Access</p>
+                    </div>
                 </div>
             </div>
 
-            {isAdminSettingsOpen && (
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 mb-12 relative z-10">
-                    <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 animate-fade-in-up">
-                        <h3 className="text-xl font-bold mb-6 text-slate-800 border-b border-slate-100 pb-4">管理者設定 (Admin Profile)</h3>
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <label className="block text-sm font-bold text-slate-500 mb-2">新しいメールアドレス (New Email)</label>
-                                <input
-                                    type="email"
-                                    value={newEmail}
-                                    onChange={(e) => setNewEmail(e.target.value)}
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3"
-                                    placeholder={user.email}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-bold text-slate-500 mb-2">新しいパスワード (New Password)</label>
-                                <input
-                                    type="password"
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3"
-                                    placeholder="********"
-                                />
-                            </div>
-                        </div>
-                        <div className="mt-8 flex justify-end">
-                            <button
-                                onClick={handleUpdateAdmin}
-                                disabled={!newEmail && !newPassword}
-                                className="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 disabled:opacity-50"
-                            >
-                                変更を保存
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 space-y-8">
-                {/* Metric Cards */}
+                {/* Metric Cards - "Métricas Reales: Una tarjeta arriba que diga Total Usuarios: {users.length}" */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <StatsCard
-                        title="登録ユーザー総数 (Total Users)"
-                        value={stats.totalUsers}
-                        icon={<Users size={24} className="text-brand-600" />}
-                        color="bg-brand-50"
-                    />
-                    <StatsCard
-                        title="オンライン / 稼働中 (Online)"
-                        value={stats.onlineUsers}
-                        icon={<Activity size={24} className="text-emerald-600" />}
-                        color="bg-emerald-50"
-                    />
-                    <StatsCard
-                        title="総オーダー数 (Total Orders)"
-                        value={stats.totalOrders}
-                        icon={<Package size={24} className="text-violet-600" />}
-                        color="bg-violet-50"
-                    />
-                </div>
-
-                {/* Users Table Section */}
-                <div className="space-y-4">
-                    <div className="flex gap-2">
-                        <button onClick={() => setFilterType('all')} className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${filterType === 'all' ? 'bg-slate-800 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}>すべて (All)</button>
-                        <button onClick={() => setFilterType('customer')} className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${filterType === 'customer' ? 'bg-emerald-500 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}>お客様 (Customers)</button>
-                        <button onClick={() => setFilterType('driver')} className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${filterType === 'driver' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}>ドライバー (Drivers)</button>
+                    <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 flex items-center gap-4">
+                        <div className="p-4 bg-blue-50 text-blue-600 rounded-xl">
+                            <Users size={24} />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">Total Usuarios</p>
+                            <h1 className="text-4xl font-bold text-slate-800">{stats.totalUsers}</h1>
+                        </div>
                     </div>
-                    <UsersTable users={filteredUsers} />
                 </div>
 
-                {/* Logistics Viewer */}
-                <LogisticsViewer orders={orders} />
+                {/* Users Table Section - "Tabla Sin Filtros" */}
+                <div className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+                    <div className="p-6 border-b border-slate-100 flex justify-between items-center">
+                        <h3 className="font-bold text-lg text-slate-800">Profiles Table (Raw Data)</h3>
+                        <span className="text-xs font-mono text-slate-400">public.profiles</span>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+                                    <th className="p-4 font-bold border-b border-slate-100">Email</th>
+                                    <th className="p-4 font-bold border-b border-slate-100">Full Name</th>
+                                    <th className="p-4 font-bold border-b border-slate-100">Role</th>
+                                    <th className="p-4 font-bold border-b border-slate-100">User ID</th>
+                                    <th className="p-4 font-bold border-b border-slate-100">Created At</th>
+                                    <th className="p-4 font-bold border-b border-slate-100">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm">
+                                {profiles.map((profile) => (
+                                    <tr key={profile.id} className="hover:bg-slate-50 transition-colors">
+                                        <td className="p-4 border-b border-slate-100 font-medium text-slate-900">
+                                            {profile.email || <span className="text-slate-400 italic">No Email</span>}
+                                        </td>
+                                        <td className="p-4 border-b border-slate-100 text-slate-600">
+                                            {profile.full_name || '-'}
+                                        </td>
+                                        <td className="p-4 border-b border-slate-100">
+                                            <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
+                                                profile.role === 'admin' 
+                                                    ? 'bg-red-100 text-red-700 border border-red-200' 
+                                                    : 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                                            }`}>
+                                                {profile.role || 'customer'}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-100 font-mono text-xs text-slate-400">
+                                            {profile.id}
+                                        </td>
+                                        <td className="p-4 border-b border-slate-100 text-slate-500 text-xs">
+                                            {new Date(profile.created_at).toLocaleString()}
+                                        </td>
+                                        <td className="p-4 border-b border-slate-100">
+                                            {/* "Columna Acciones: ... agrega un botón ... Hacer Admin" */}
+                                            {profile.role !== 'admin' && (
+                                                <button
+                                                    onClick={() => makeAdmin(profile.id)}
+                                                    className="px-3 py-1.5 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700 transition-colors flex items-center gap-1 shadow-sm"
+                                                >
+                                                    <Shield size={12} />
+                                                    Hacer Admin
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                                {profiles.length === 0 && (
+                                    <tr>
+                                        <td colSpan={6} className="p-8 text-center text-slate-400">
+                                            No profiles found in 'profiles' table.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     );
