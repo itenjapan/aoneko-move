@@ -1,6 +1,7 @@
 import React from 'react';
 import { VEHICLES } from '../../constants';
 import { CheckCircle, Box, Truck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface VehicleSelectorProps {
     selectedVehicle: string;
@@ -9,13 +10,15 @@ interface VehicleSelectorProps {
 }
 
 const VehicleSelector: React.FC<VehicleSelectorProps> = ({ selectedVehicle, onSelect, dbVehicles }) => {
+    const { t } = useTranslation();
+
     return (
         <div className="bg-white rounded-[2.5rem] shadow-sm p-8 md:p-10 border border-slate-100/60 hover:border-brand-200 transition-all duration-500">
             <h2 className="text-xl font-bold mb-8 flex items-center text-slate-800">
                 <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 mr-4 ring-4 ring-emerald-50/50 shadow-sm">
                     <Truck size={22} />
                 </span>
-                車両タイプの選択 (Vehicle Selection)
+                {t('quote.vehicle.title')}
             </h2>
             <div className="grid sm:grid-cols-2 gap-6">
                 {VEHICLES.map((vehicle) => {
@@ -45,15 +48,15 @@ const VehicleSelector: React.FC<VehicleSelectorProps> = ({ selectedVehicle, onSe
                                         ¥{displayPrice.toLocaleString()}
                                         <span className="text-sm font-normal">〜</span>
                                     </p>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Base Fare</p>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t('quote.vehicle.base_fare')}</p>
                                 </div>
                             </div>
                             <div className="mb-1">
-                                <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-0.5">{vehicle.name}</span>
-                                <h3 className="font-bold text-slate-800 text-2xl tracking-tight">{vehicle.displayName}</h3>
+                                <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-0.5">{t(`constants.vehicles.${vehicle.id}.name`)}</span>
+                                <h3 className="font-bold text-slate-800 text-2xl tracking-tight">{t(`constants.vehicles.${vehicle.id}.displayName`)}</h3>
                             </div>
                             <div className="pt-3 border-t border-slate-200/50 text-xs text-slate-500 mt-2 flex items-center gap-2">
-                                <Box size={14} className="text-brand-400" /> {vehicle.capacity}
+                                <Box size={14} className="text-brand-400" /> {t(`constants.vehicles.${vehicle.id}.description`)}
                             </div>
                         </div>
                     );

@@ -65,6 +65,83 @@
         "made_with": "Made with",
         "in_japan": "in Japan"
     },
+    "quote": {
+        "title": "Instant Quote",
+        "subtitle": "Aichi, Gifu, & Mie Area Coverage",
+        "route": {
+            "title": "Route Configuration",
+            "pickup": "Pickup Origin",
+            "pickup_placeholder": "Enter building, station, or address",
+            "destination": "Destination",
+            "destination_placeholder": "Enter destination address"
+        },
+        "schedule": {
+            "title": "Schedule Pickup",
+            "today": "Today",
+            "tomorrow": "Tomorrow",
+            "weekend": "Weekend",
+            "date": "Date",
+            "time": "Time"
+        },
+        "cargo": {
+            "title": "Cargo & Options",
+            "boxes": "Boxes (60x30cm)",
+            "suitcases": "Suitcases",
+            "highway": "Use Highway",
+            "highway_desc": "Recommended for long-distance or urgent trips",
+            "helper": "Loading Assistance",
+            "helper_desc": "Driver will assist with loading and unloading"
+        },
+        "vehicle": {
+            "title": "Vehicle Selection",
+            "base_fare": "Base Fare"
+        },
+        "result": {
+            "title": "Quote Result",
+            "subtitle": "Optimal delivery plan calculated by AI",
+            "time": "Approx. {{time}} min",
+            "distance": "{{dist}} km",
+            "service_fee": "Service Fee",
+            "toll_fee": "Toll Fees",
+            "cargo_fee": "Cargo/Assist",
+            "subtotal": "Subtotal",
+            "tax": "Sales Tax 10%",
+            "for_driver": "[ For the Driver ]",
+            "company_profit": "Platform Fee (20%)",
+            "driver_fee": "Driver Earnings (80%)",
+            "total": "Total Amount",
+            "tax_inc": "Inc. 10% Tax",
+            "reset": "Reset",
+            "confirm": "Confirm & Request",
+            "login_to_book": "Login to Book",
+            "processing": "Processing...",
+            "nearby_drivers": "Nearby drivers detected in your area",
+            "calculating": "Calculating fare..."
+        },
+        "success": {
+            "title": "Booking Confirmed!",
+            "subtitle": "A professional driver will be assigned to your request shortly.",
+            "reference": "Booking Reference",
+            "track": "Track in Real-time",
+            "home": "Back to Home"
+        },
+        "customer": {
+            "title": "Customer Information",
+            "name": "Full Name",
+            "email": "Email Address",
+            "phone": "Phone Number"
+        },
+        "errors": {
+            "email_required": "Please enter your email address",
+            "booking_failed": "Booking error"
+        },
+        "clear_all": "Clear all inputs",
+        "surcharge": {
+            "normal": "Standard Booking",
+            "express": "Express Fee (within 2h)",
+            "urgent": "Urgent Fee (within 24h)"
+        }
+    },
     "constants": {
         "plans": {
             "single": {

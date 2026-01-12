@@ -65,6 +65,83 @@
         "made_with": "Hecho con",
         "in_japan": "en Japón"
     },
+    "quote": {
+        "title": "Presupuesto Instantáneo",
+        "subtitle": "Cobertura en Aichi, Gifu y Mie",
+        "route": {
+            "title": "Configuración de Ruta",
+            "pickup": "Origen (Recogida)",
+            "pickup_placeholder": "Ingrese edificio, estación o dirección",
+            "destination": "Destino (Entrega)",
+            "destination_placeholder": "Ingrese la dirección de destino"
+        },
+        "schedule": {
+            "title": "Horario de Recogida",
+            "today": "Hoy",
+            "tomorrow": "Mañana",
+            "weekend": "Fin de semana",
+            "date": "Fecha",
+            "time": "Hora"
+        },
+        "cargo": {
+            "title": "Detalles de Carga y Opciones",
+            "boxes": "Cajas (60x30cm)",
+            "suitcases": "Maletas",
+            "highway": "Usar Autopista",
+            "highway_desc": "Recomendado para viajes urgentes o de larga distancia",
+            "helper": "Asistencia de Carga",
+            "helper_desc": "El conductor ayudará con la carga y descarga"
+        },
+        "vehicle": {
+            "title": "Selección de Vehículo",
+            "base_fare": "Tarifa Base"
+        },
+        "result": {
+            "title": "Resultado del Presupuesto",
+            "subtitle": "Plan de entrega óptimo calculado por IA",
+            "time": "Aprox. {{time}} min",
+            "distance": "{{dist}} km",
+            "service_fee": "Tarifa de Servicio",
+            "toll_fee": "Peajes",
+            "cargo_fee": "Carga/Asistencia",
+            "subtotal": "Subtotal",
+            "tax": "IVA 10%",
+            "for_driver": "[ Para el Conductor ]",
+            "company_profit": "Comisión Plataforma (20%)",
+            "driver_fee": "Ganancia Conductor (80%)",
+            "total": "Monto Total",
+            "tax_inc": "IVA Incl.",
+            "reset": "Reiniciar",
+            "confirm": "Confirmar y Solicitar",
+            "login_to_book": "Iniciar sesión para reservar",
+            "processing": "Procesando...",
+            "nearby_drivers": "Conductores detectados cerca de tu área",
+            "calculating": "Calculando tarifa..."
+        },
+        "success": {
+            "title": "¡Reserva Confirmada!",
+            "subtitle": "Un conductor profesional será asignado a su solicitud en breve.",
+            "reference": "Referencia de Reserva",
+            "track": "Seguimiento en Tiempo Real",
+            "home": "Volver al Inicio"
+        },
+        "customer": {
+            "title": "Información del Cliente",
+            "name": "Nombre Completo",
+            "email": "Correo Electrónico",
+            "phone": "Teléfono"
+        },
+        "errors": {
+            "email_required": "Por favor, ingrese su correo electrónico",
+            "booking_failed": "Error en la reserva"
+        },
+        "clear_all": "Limpiar todo",
+        "surcharge": {
+            "normal": "Reserva Estándar",
+            "express": "Tarifa Express (2h)",
+            "urgent": "Tarifa Urgente (24h)"
+        }
+    },
     "constants": {
         "plans": {
             "single": {

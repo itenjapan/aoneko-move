@@ -9,11 +9,11 @@ import { useSupabaseData } from '../hooks/useSupabaseData';
 import { getDistance } from '../services/googleMaps/distance';
 import { calculateCompleteBreakdown } from '../utils/pricingFormulas';
 import { CheckCircle, Loader2, Trash2, ArrowRight, User, Mail, Phone, ShieldCheck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import { OrderForm } from '../components/OrderForm';
 import { VehicleSelector } from '../components/VehicleSelector';
 import { PriceBreakdown } from '../components/PriceBreakdown';
-import { useTranslation } from 'react-i18next';
 
 const QuickQuote: React.FC = () => {
   const { t } = useTranslation();
@@ -94,13 +94,13 @@ const QuickQuote: React.FC = () => {
           const diffInHours = (pickupTime.getTime() - now.getTime()) / (1000 * 60 * 60);
 
           let timeSurchargeFee = 0;
-          let timeSurchargeLabel = '通常予約';
+          let timeSurchargeLabel = t('quote.surcharge.normal');
           if (diffInHours < 2) {
             timeSurchargeFee = 2000;
-            timeSurchargeLabel = '特急料金 (2時間以内)';
+            timeSurchargeLabel = t('quote.surcharge.express');
           } else if (diffInHours < 24) {
             timeSurchargeFee = 1000;
-            timeSurchargeLabel = 'お急ぎ料金 (24時間以内)';
+            timeSurchargeLabel = t('quote.surcharge.urgent');
           }
 
           const breakdown = calculateCompleteBreakdown(
@@ -145,12 +145,12 @@ const QuickQuote: React.FC = () => {
 
     const debounceTimer = setTimeout(calculateDistance, 800);
     return () => clearTimeout(debounceTimer);
-  }, [pickup, delivery, pickupLatLng, selectedVehicle, helperService, boxes, suitcases, useHighway, date, time, dbVehicles]);
+  }, [pickup, delivery, pickupLatLng, selectedVehicle, helperService, boxes, suitcases, useHighway, date, time, dbVehicles, t]);
 
   const handleBooking = async () => {
     if (!quote) return;
     if (!customerEmail) {
-      alert('メールアドレスを入力してください / Please enter your email.');
+      alert(t('quote.errors.email_required') || 'メールアドレスを入力してください');
       return;
     }
 
@@ -213,7 +213,7 @@ const QuickQuote: React.FC = () => {
 
     } catch (e: any) {
       console.error("Booking failed", e);
-      alert(`予約エラー: ${e.message}`);
+      alert(`${t('quote.errors.booking_failed') || '予約エラー'}: ${e.message}`);
     } finally {
       setBookingProcessing(false);
     }
@@ -226,15 +226,14 @@ const QuickQuote: React.FC = () => {
           <div className="w-24 h-24 bg-brand-50 rounded-full flex items-center justify-center mx-auto mb-8 text-brand-500 shadow-sm ring-8 ring-brand-50/50">
             <CheckCircle size={48} strokeWidth={2.5} />
           </div>
-          <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">予約が完了しました！</h2>
+          <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">{t('quote.success.title') || '予約が完了しました！'}</h2>
           <p className="text-slate-500 mb-10 text-lg font-light leading-relaxed">
-            プロのドライバーが間もなく決定します。<br />
-            お問い合わせ番号を控えておいてください。
+            {t('quote.success.subtitle') || 'プロのドライバーが間もなく決定します。'}
           </p>
 
           <div className="bg-slate-950 text-white rounded-[2rem] p-8 mb-10 border border-white/5 shadow-inner relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
-            <p className="text-[10px] font-bold text-brand-400 uppercase tracking-[0.2em] mb-3">Booking Reference</p>
+            <p className="text-[10px] font-bold text-brand-400 uppercase tracking-[0.2em] mb-3">{t('quote.success.reference') || 'Booking Reference'}</p>
             <p className="text-5xl font-mono font-black tracking-widest text-white selection:bg-brand-500">{bookingSuccess.trackingNumber}</p>
           </div>
 
@@ -243,10 +242,10 @@ const QuickQuote: React.FC = () => {
               onClick={() => navigate(`/tracking?id=${bookingSuccess.trackingNumber}`)}
               className="w-full bg-brand-500 text-white py-5 rounded-2xl font-black text-xl shadow-xl shadow-brand-500/20 hover:bg-brand-600 transition-all flex items-center justify-center gap-3 transform active:scale-95"
             >
-              リアルタイムで追跡する <ArrowRight size={24} />
+              {t('quote.success.track') || 'リアルタイムで追跡する'} <ArrowRight size={24} />
             </button>
             <button onClick={() => navigate('/')} className="w-full text-slate-400 font-bold hover:text-slate-600 transition-colors py-3">
-              トップページに戻る
+              {t('quote.success.home') || 'トップページに戻る'}
             </button>
           </div>
         </div>
@@ -262,10 +261,10 @@ const QuickQuote: React.FC = () => {
             <ShieldCheck size={32} className="text-brand-500" />
           </div>
           <h1 className="text-5xl font-black mb-4 text-slate-900 tracking-tight">
-            スピードお見積もり
+            {t('quote.title')}
           </h1>
           <p className="text-slate-500 font-light text-xl max-w-xl mx-auto leading-relaxed">
-            AIが最適なルート、正確な料金、そして信頼できるドライバーを瞬時に提案します。
+            {t('quote.subtitle')}
           </p>
         </div>
 
@@ -305,25 +304,25 @@ const QuickQuote: React.FC = () => {
                   <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-blue-50 text-brand-600 mr-4 ring-4 ring-blue-50/50">
                     <User size={22} />
                   </span>
-                  お客様情報 (Customer Info)
+                  {t('quote.customer.title')}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1">お名前 (Name)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1">{t('quote.customer.name')}</label>
                     <div className="relative">
                       <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
-                      <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="山田 太郎" className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:bg-white focus:ring-4 focus:ring-brand-50 focus:border-brand-400 transition-all" />
+                      <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Yamada Taro" className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:bg-white focus:ring-4 focus:ring-brand-50 focus:border-brand-400 transition-all" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1">メールアドレス (Email) *</label>
+                    <label className="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1">{t('quote.customer.email')} *</label>
                     <div className="relative">
                       <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
                       <input type="email" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} placeholder="example@mail.com" className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:bg-white focus:ring-4 focus:ring-brand-50 focus:border-brand-400 transition-all shadow-sm" required />
                     </div>
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1">電話番号 (Phone)</label>
+                    <label className="block text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1">{t('quote.customer.phone')}</label>
                     <div className="relative">
                       <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
                       <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="090-1234-5678" className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:bg-white focus:ring-4 focus:ring-brand-50 focus:border-brand-400 transition-all" />
@@ -336,7 +335,7 @@ const QuickQuote: React.FC = () => {
                 <div className="flex justify-center p-4">
                   <div className="flex items-center gap-2 text-slate-400 animate-pulse">
                     <Loader2 size={16} className="animate-spin" />
-                    <span className="text-sm font-bold">料金を計算中...</span>
+                    <span className="text-sm font-bold">{t('quote.result.calculating') || '料金を計算中...'}</span>
                   </div>
                 </div>
               )}
@@ -355,10 +354,11 @@ const QuickQuote: React.FC = () => {
           {(pickup || delivery || quote) && (
             <div className="flex justify-center pt-8">
               <button
-                onClick={() => { setPickup(''); setDelivery(''); setQuote(null); setPickupLatLng(null); setDeliveryLatLng(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="flex items-center gap-2 text-slate-400 hover:text-rose-500 transition-colors text-sm font-bold"
+                onClick={() => { setQuote(null); setPickup(''); setDelivery(''); setPickupLatLng(null); setDeliveryLatLng(null); setSelectedVehicle('keivan'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="flex items-center gap-2 text-slate-400 hover:text-rose-500 font-bold transition-colors text-sm"
               >
-                <Trash2 size={16} /> 入力内容をすべてクリア
+                <Trash2 size={16} />
+                {t('quote.clear_all') || 'すべての入力をクリア'}
               </button>
             </div>
           )}

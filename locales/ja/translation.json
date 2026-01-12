@@ -63,7 +63,87 @@
         "help_text": "お困りの際はお気軽にお電話ください。",
         "copyright": "© 2026 Aoneko Move. Sophisticated Logistics.",
         "made_with": "Made with",
-        "in_japan": "in Japan"
+        "in_japan": "in Japan",
+        "quote": "即時見積もり",
+        "tracking": "荷物追跡",
+        "partner_register": "ドライバー募集"
+    },
+    "quote": {
+        "title": "即時見積もり",
+        "subtitle": "愛知・岐阜・三重エリア対応",
+        "route": {
+            "title": "配送ルートの設定",
+            "pickup": "集荷先",
+            "pickup_placeholder": "建物名・駅名・住所を入力",
+            "destination": "配送先",
+            "destination_placeholder": "お届け先の住所を入力"
+        },
+        "schedule": {
+            "title": "集荷日時の指定",
+            "today": "今日",
+            "tomorrow": "明日",
+            "weekend": "週末",
+            "date": "配送日",
+            "time": "集荷時間"
+        },
+        "cargo": {
+            "title": "荷物の詳細とオプション",
+            "boxes": "段ボール箱数 (60x30cm)",
+            "suitcases": "スーツケース数",
+            "highway": "高速道路を使用する",
+            "highway_desc": "お急ぎの場合や長距離配送におすすめです",
+            "helper": "荷物積み込みアシスト",
+            "helper_desc": "ドライバーが建物の搬入出をお手伝いします"
+        },
+        "vehicle": {
+            "title": "車両タイプの選択",
+            "base_fare": "基本料金"
+        },
+        "result": {
+            "title": "お見積もり結果",
+            "subtitle": "AIが算出した最適な配車プランです",
+            "time": "約{{time}}分",
+            "distance": "{{dist}}km",
+            "service_fee": "サービス料金",
+            "toll_fee": "高速料金",
+            "cargo_fee": "荷物・アシスト",
+            "subtotal": "小計",
+            "tax": "消費税 10%",
+            "for_driver": "[ ドライバー向け ]",
+            "company_profit": "企業利益 (20%)",
+            "driver_fee": "ドライバー報酬 (80%)",
+            "total": "お支払い合計",
+            "tax_inc": "税込価格",
+            "reset": "リセット",
+            "confirm": "この内容で配車を依頼",
+            "login_to_book": "ログインして予約へ",
+            "processing": "処理中...",
+            "nearby_drivers": "周辺に待機中のドライバーがいます",
+            "calculating": "料金を計算中..."
+        },
+        "success": {
+            "title": "予約が完了しました！",
+            "subtitle": "プロのドライバーが間もなく決定します。",
+            "reference": "お問い合わせ番号 (Reference)",
+            "track": "リアルタイムで追跡する",
+            "home": "トップページに戻る"
+        },
+        "customer": {
+            "title": "お客様情報",
+            "name": "お名前",
+            "email": "メールアドレス",
+            "phone": "電話番号"
+        },
+        "errors": {
+            "email_required": "メールアドレスを入力してください",
+            "booking_failed": "予約エラー"
+        },
+        "clear_all": "すべての入力をクリア",
+        "surcharge": {
+            "normal": "通常予約",
+            "express": "特急料金 (2時間以内)",
+            "urgent": "お急ぎ料金 (24時間以内)"
+        }
     },
     "constants": {
         "plans": {
