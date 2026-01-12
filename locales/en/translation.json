@@ -57,7 +57,7 @@
         "desc": "Providing optimal delivery solutions 24/7/365, centered in the Tokai 3rd prefecture area.",
         "tagline": "The elegance of movement, the precision of technology.",
         "menu_title": "Menu / Services",
-        "contact_title": "Concierge / Contact",
+        "contact_title": "Direct Line / Contact",
         "toll_free": "Toll Free",
         "hours": "Hours: 24/7 Available",
         "help_text": "Please feel free to call us if you have any questions.",
@@ -140,6 +140,27 @@
             "normal": "Standard Booking",
             "express": "Express Fee (within 2h)",
             "urgent": "Urgent Fee (within 24h)"
+        }
+    },
+    "auth": {
+        "title": "Create Account",
+        "subtitle": "Experience seamless delivery with Aoneko Move",
+        "name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "password": "Password",
+        "submit": "Sign Up & Start",
+        "already_have_account": "Already have an account?",
+        "login": "Login",
+        "placeholders": {
+            "name": "John Doe",
+            "email": "you@example.com",
+            "phone": "+81 90-1234-5678",
+            "password": "8+ characters"
+        },
+        "errors": {
+            "phone_required": "Phone number is required",
+            "registration_failed": "Registration failed"
         }
     },
     "constants": {

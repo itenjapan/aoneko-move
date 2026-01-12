@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string, phone: string) => Promise<void>;
   signupDriver: (name: string, email: string, password: string, phone: string, vehicleType: string, licensePlate: string) => Promise<void>;
   updateProfile: (data: Partial<User | Driver>) => Promise<void>;
   logout: () => void;
@@ -45,13 +45,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
   };
 
-  const signup = async (name: string, email: string, password: string) => {
+  const signup = async (name: string, email: string, password: string, phone: string) => {
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 800));
 
     try {
       // Register via mockStore
-      const newUser = mockStore.register(name, email, password);
+      const newUser = mockStore.register(name, email, password, 'customer', { phone });
 
       const { password: _, ...userWithoutPass } = newUser;
       setUser(userWithoutPass);

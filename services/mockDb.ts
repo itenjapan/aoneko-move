@@ -191,7 +191,14 @@ class MockStore {
         isOnline: false, rating: 5.0, totalRides: 0
       } as Driver;
     } else {
-      newUser = { id: 'user-' + Math.random().toString(36).substr(2, 9), name, email, password, userType, phone: '' };
+      newUser = {
+        id: 'user-' + Math.random().toString(36).substr(2, 9),
+        name,
+        email,
+        password,
+        userType,
+        phone: additionalData?.phone || ''
+      };
     }
     this.users.push(newUser);
     this.saveData();

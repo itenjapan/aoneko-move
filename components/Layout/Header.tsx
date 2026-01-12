@@ -67,8 +67,8 @@ const Header: React.FC = () => {
                 <div className="flex justify-between h-20">
                     <div className="flex items-center">
                         <Link to="/" className="flex-shrink-0 flex items-center gap-3 group">
-                            <div className="bg-brand-500 text-white p-2.5 rounded-2xl shadow-lg shadow-brand-500/20 transform group-hover:scale-105 transition-transform duration-300">
-                                <Truck size={24} />
+                            <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-brand-500/20 transform group-hover:scale-105 transition-transform duration-300">
+                                <img src="/logo.jpg" alt="Aoneko Move Logo" className="w-full h-full object-cover" />
                             </div>
                             <div className="font-bold text-2xl tracking-tighter group-hover:opacity-90 transition-opacity">
                                 <span className="text-slate-900 border-b-2 border-transparent group-hover:border-brand-500 transition-colors">Aoneko</span>

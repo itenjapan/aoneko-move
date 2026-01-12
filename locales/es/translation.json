@@ -57,7 +57,7 @@
         "desc": "Proporcionando soluciones de entrega óptimas las 24 horas, los 365 días del año, en el área de Tokai.",
         "tagline": "La elegancia del movimiento, la precisión de la tecnología.",
         "menu_title": "Menú / Servicios",
-        "contact_title": "Conserjería / Contacto",
+        "contact_title": "Línea Directa / Contacto",
         "toll_free": "Línea Gratuita",
         "hours": "Horario: 24/7 Disponible",
         "help_text": "No dude en llamarnos si tiene alguna pregunta.",
@@ -140,6 +140,27 @@
             "normal": "Reserva Estándar",
             "express": "Tarifa Express (2h)",
             "urgent": "Tarifa Urgente (24h)"
+        }
+    },
+    "auth": {
+        "title": "Crear Cuenta",
+        "subtitle": "Disfruta de una entrega fluida con Aoneko Move",
+        "name": "Nombre Completo",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "password": "Contraseña",
+        "submit": "Registrarse y Empezar",
+        "already_have_account": "¿Ya tienes una cuenta?",
+        "login": "Iniciar Sesión",
+        "placeholders": {
+            "name": "Juan Pérez",
+            "email": "tu@ejemplo.com",
+            "phone": "+81 90-1234-5678",
+            "password": "8+ caracteres"
+        },
+        "errors": {
+            "phone_required": "El teléfono es obligatorio",
+            "registration_failed": "Error en el registro"
         }
     },
     "constants": {

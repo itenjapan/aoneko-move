@@ -16,8 +16,8 @@ const Footer: React.FC = () => {
                     {/* Brand Section */}
                     <div className="md:col-span-5">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="bg-brand-500 text-white p-2.5 rounded-2xl shadow-lg shadow-brand-500/20">
-                                <Truck size={22} />
+                            <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-brand-500/20">
+                                <img src="/logo.jpg" alt="Aoneko Move Logo" className="w-full h-full object-cover" />
                             </div>
                             <span className="text-white font-black text-3xl tracking-tighter">Aoneko Move</span>
                         </div>
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                         </ul>
                     </div>
 
-                    {/* Concierge/Contact Section */}
+                    {/* Direct Line/Contact Section */}
                     <div className="md:col-span-4 bg-white/5 p-8 rounded-[2.5rem] border border-white/10 backdrop-blur-sm self-start">
                         <h4 className="text-brand-400 font-bold mb-6 uppercase tracking-[0.3em] text-[10px]">{t('footer.contact_title')}</h4>
                         <div className="flex flex-col gap-1">

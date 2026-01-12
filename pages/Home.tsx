@@ -21,8 +21,13 @@ const Home: React.FC = () => {
               {t('hero.title_part1')}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">{t('hero.title_part2')}</span>
             </h1>
-            <div className="text-5xl lg:text-7xl font-extrabold mb-10 tracking-wider">
-              <span className="text-slate-900">Aoneko</span> <span className="text-brand-500">Move</span>
+            <div className="flex flex-col items-center mb-10">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden shadow-xl shadow-brand-500/20 mb-8 animate-fade-in-up">
+                <img src="/hero-logo.jpg" alt="Aoneko Move Hero Logo" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-5xl lg:text-7xl font-extrabold tracking-wider">
+                <span className="text-slate-900">Aoneko</span> <span className="text-brand-500">Move</span>
+              </div>
             </div>
             <p className="text-xl text-slate-600 mb-12 leading-relaxed font-light max-w-2xl mx-auto">
               <Trans i18nKey="hero.desc">

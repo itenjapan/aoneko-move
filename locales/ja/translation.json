@@ -57,7 +57,7 @@
         "desc": "東海3県エリアを中心に、24時間365日常に最適な配送ソリューションを。",
         "tagline": "La elegancia del movimiento, la precisión de la tecnología.",
         "menu_title": "Menu / サービス",
-        "contact_title": "Concierge / お問い合わせ",
+        "contact_title": "Direct Line / お問い合わせ",
         "toll_free": "フリーダイヤル",
         "hours": "受付時間: 24時間365日対応",
         "help_text": "お困りの際はお気軽にお電話ください。",
@@ -143,6 +143,27 @@
             "normal": "通常予約",
             "express": "特急料金 (2時間以内)",
             "urgent": "お急ぎ料金 (24時間以内)"
+        }
+    },
+    "auth": {
+        "title": "アカウント作成",
+        "subtitle": "Aoneko Moveで快適な配送体験を",
+        "name": "お名前",
+        "email": "メールアドレス",
+        "phone": "電話番号",
+        "password": "パスワード",
+        "submit": "登録して始める",
+        "already_have_account": "すでにアカウントをお持ちですか？",
+        "login": "ログイン",
+        "placeholders": {
+            "name": "田中 太郎",
+            "email": "you@example.com",
+            "phone": "090-1234-5678",
+            "password": "8文字以上の英数字"
+        },
+        "errors": {
+            "phone_required": "電話番号は必須です",
+            "registration_failed": "登録に失敗しました"
         }
     },
     "constants": {
