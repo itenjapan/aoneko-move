@@ -13,8 +13,10 @@ import { CheckCircle, Loader2, Trash2, ArrowRight, User, Mail, Phone, ShieldChec
 import { OrderForm } from '../components/OrderForm';
 import { VehicleSelector } from '../components/VehicleSelector';
 import { PriceBreakdown } from '../components/PriceBreakdown';
+import { useTranslation } from 'react-i18next';
 
 const QuickQuote: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();

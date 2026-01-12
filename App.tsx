@@ -16,9 +16,19 @@ import { CakeTrackLogo } from './components/Logo';
 import { PushNotificationService } from './services/pushNotificationService';
 import { PWAChecker } from './utils/pwaChecker';
 import { AuthProvider } from './contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { i18n } = useTranslation();
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    // Force i18n to check localStorage on initial load and route changes if needed
+    const savedLng = localStorage.getItem('i18nextLng');
+    if (savedLng && i18n.language !== savedLng) {
+      i18n.changeLanguage(savedLng);
+    }
+  }, [i18n]);
 
   useEffect(() => {
     // Load Google Maps JavaScript API script
