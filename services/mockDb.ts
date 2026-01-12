@@ -25,7 +25,7 @@ class MockStore {
   defaultAdmin: User = {
     id: 'admin-1',
     name: 'システム管理者 (Admin)',
-    email: 'admin@jpmove.com',
+    email: 'aoneko.move@gmail.com',
     userType: 'admin',
     phone: '000-0000-0000'
   };
@@ -197,12 +197,23 @@ class MockStore {
         email,
         password,
         userType,
-        phone: additionalData?.phone || ''
+        phone: additionalData?.phone || '',
+        aonekoId: this.generateAonekoId()
       };
     }
     this.users.push(newUser);
     this.saveData();
     return newUser;
+  }
+
+  private generateAonekoId(): string {
+    const year = new Date().getFullYear();
+    const seq = (this.users.length + 1).toString().padStart(3, '0');
+    return `AONEKO-${year}-${seq}`;
+  }
+
+  getAllUsers(): (User | Driver)[] {
+    return this.users;
   }
 
   updateUser(updatedUser: Partial<User | Driver> & { id: string }) {

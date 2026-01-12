@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import DriverRegistration from './pages/DriverRegistration';
 import AdminDriverPanel from './pages/AdminDriverPanel';
+import AdminDashboard from './pages/AdminDashboard';
 import { PWAInstallPrompt } from './components/PWA';
 import { OfflineIndicator, ProtectedRoute, Onboarding } from './components/Common';
 import { CakeTrackLogo } from './components/Logo';
@@ -167,6 +168,14 @@ function App() {
                       element={
                         <ProtectedRoute allowedRoles={['admin']}>
                           <AdminDriverPanel />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute allowedRoles={['admin']}>
+                          <AdminDashboard />
                         </ProtectedRoute>
                       }
                     />
