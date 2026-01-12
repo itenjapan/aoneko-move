@@ -2,8 +2,11 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Truck, Package, User, Menu, X, LogOut, Shield } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../Common/LanguageSelector';
 
 const Header: React.FC = () => {
+    const { t } = useTranslation();
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,19 +21,19 @@ const Header: React.FC = () => {
     };
 
     const navLinks = [
-        { path: '/', label: 'ホーム', icon: null },
-        { path: '/quote', label: '見積もり・配送', icon: Truck },
-        { path: '/tracking', label: '追跡', icon: Package },
+        { path: '/', label: t('nav.home'), icon: null },
+        { path: '/quote', label: t('nav.quote'), icon: Truck },
+        { path: '/tracking', label: t('nav.tracking'), icon: Package },
     ];
 
     if (user?.userType === 'admin') {
-        navLinks.push({ path: '/admin/drivers', label: '管理パネル', icon: Shield });
+        navLinks.push({ path: '/admin/drivers', label: t('nav.admin'), icon: Shield });
     } else if (user?.userType === 'driver') {
-        navLinks.push({ path: '/driver', label: 'ドライバー画面', icon: User });
+        navLinks.push({ path: '/driver', label: t('nav.driver'), icon: User });
     }
 
     if (user && user.userType === 'customer') {
-        navLinks.push({ path: '/dashboard', label: 'マイページ', icon: User });
+        navLinks.push({ path: '/dashboard', label: t('nav.dashboard'), icon: User });
     }
 
     const getRoleBadge = (type: string) => {
@@ -93,6 +96,8 @@ const Header: React.FC = () => {
                         </div>
 
                         <div className="pl-6 border-l border-slate-100 flex items-center gap-4">
+                            <LanguageSelector />
+                            <div className="h-4 w-px bg-slate-100 mx-2 hidden sm:block"></div>
                             {user ? (
                                 <div className="flex items-center gap-4">
                                     <div className="flex flex-col items-end">
@@ -112,14 +117,14 @@ const Header: React.FC = () => {
                             ) : (
                                 <>
                                     <Link to="/login" className="text-slate-500 hover:text-brand-500 font-medium text-sm px-4 transition-colors">
-                                        ログイン
+                                        {t('nav.login')}
                                     </Link>
                                     <Link to="/signup" className="bg-brand-500 text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/20 transform hover:-translate-y-0.5">
-                                        新規登録
+                                        {t('nav.signup')}
                                     </Link>
-                                    <div className="h-4 w-px bg-slate-100 mx-1"></div>
-                                    <Link to="/partner/register" className="text-[10px] font-bold text-slate-400 hover:text-brand-500 uppercase tracking-widest transition-colors">
-                                        ドライバー登録
+                                    <div className="h-4 w-px bg-slate-100 mx-1 hidden lg:block"></div>
+                                    <Link to="/partner/register" className="hidden lg:block text-[10px] font-bold text-slate-400 hover:text-brand-500 uppercase tracking-widest transition-colors">
+                                        {t('nav.partner_register')}
                                     </Link>
                                 </>
                             )}
@@ -127,7 +132,8 @@ const Header: React.FC = () => {
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="flex items-center md:hidden">
+                    <div className="flex items-center md:hidden gap-3">
+                        <LanguageSelector />
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="inline-flex items-center justify-center p-2 rounded-xl text-slate-400 hover:text-brand-600 hover:bg-brand-50 transition-colors"
@@ -167,7 +173,7 @@ const Header: React.FC = () => {
                             >
                                 <div className="flex items-center">
                                     <Truck size={20} className="mr-4 text-slate-400" />
-                                    ドライバーとして登録
+                                    {t('nav.partner_register')}
                                 </div>
                             </Link>
                         )}
@@ -189,10 +195,10 @@ const Header: React.FC = () => {
                             ) : (
                                 <>
                                     <Link to="/login" onClick={() => setIsMenuOpen(false)} className="block w-full text-center text-slate-600 py-3.5 font-bold hover:text-brand-600 transition-colors">
-                                        ログイン
+                                        {t('nav.login')}
                                     </Link>
                                     <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="block w-full text-center bg-slate-900 text-white py-3.5 rounded-xl font-bold hover:bg-brand-600 shadow-lg shadow-brand-500/20 transition-all">
-                                        新規登録
+                                        {t('nav.signup')}
                                     </Link>
                                 </>
                             )}

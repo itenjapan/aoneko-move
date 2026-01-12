@@ -1,0 +1,114 @@
+{
+    "common": {
+        "loading": "Cargando...",
+        "back": "Volver",
+        "submit": "Enviar"
+    },
+    "nav": {
+        "home": "Inicio",
+        "quote": "Presupuesto y Envío",
+        "tracking": "Seguimiento",
+        "admin": "Panel Admin",
+        "driver": "App Conductor",
+        "dashboard": "Mi Página",
+        "login": "Iniciar Sesión",
+        "signup": "Registrarse",
+        "partner_register": "Registro Socio"
+    },
+    "hero": {
+        "badge": "Hacia la próxima generación de entregas",
+        "title_part1": "Entregamos confianza,",
+        "title_part2": "con más libertad.",
+        "desc": "Solicitud inmediata con una sola app, 24/7.<br />Entregando tus paquetes valiosos con una UI refinada y calidad garantizada.",
+        "cta_quote": "Ver Precio y Solicitar",
+        "cta_tracking": "Rastrear Paquete"
+    },
+    "features": {
+        "title": "Calidad Aoneko",
+        "subtitle": "Velocidad, transparencia y confianza. Todo simplificado.",
+        "item1": {
+            "title": "Emparejamiento Instantáneo",
+            "desc": "La IA selecciona al conductor óptimo al instante. Respuesta inteligente a pedidos urgentes."
+        },
+        "item2": {
+            "title": "Precios Claros",
+            "desc": "Tarifas transparentes basadas en la distancia y el tipo de vehículo. Sin costos ocultos."
+        },
+        "item3": {
+            "title": "Seguimiento en Tiempo Real",
+            "desc": "Visualiza la ubicación con GPS. Predicciones precisas de llegada."
+        }
+    },
+    "plans": {
+        "title": "Planes de Envío Populares",
+        "subtitle": "Paquetes a tarifa plana asequibles según tus necesidades",
+        "recommended": "Recomendado",
+        "select": "Elegir Plan",
+        "estimate": "Est."
+    },
+    "vehicles": {
+        "title": "Vehículos Disponibles",
+        "subtitle": "El vehículo perfecto para cada propósito.",
+        "cta_all": "Ver todos los precios",
+        "base_fare": "Tarifa Base",
+        "quote_cta": "Presupuesto con este vehículo"
+    },
+    "footer": {
+        "desc": "Proporcionando soluciones de entrega óptimas las 24 horas, los 365 días del año, en el área de Tokai.",
+        "tagline": "La elegancia del movimiento, la precisión de la tecnología.",
+        "menu_title": "Menú / Servicios",
+        "contact_title": "Conserjería / Contacto",
+        "toll_free": "Línea Gratuita",
+        "hours": "Horario: 24/7 Disponible",
+        "help_text": "No dude en llamarnos si tiene alguna pregunta.",
+        "copyright": "© 2026 Aoneko Move. Logística Sofisticada.",
+        "made_with": "Hecho con",
+        "in_japan": "en Japón"
+    },
+    "constants": {
+        "plans": {
+            "single": {
+                "name": "Plan Mudanza Individual",
+                "price": "Desde ¥12,000",
+                "description": "Ideal para estudiantes y profesionales. Una furgoneta ligera cubre aprox. 20 cajas de cartón + futón + electrodomésticos pequeños.",
+                "features": [
+                    "Asistencia del conductor incluida",
+                    "Alquiler de cajas de perchas",
+                    "Se permite un pasajero"
+                ]
+            },
+            "furniture": {
+                "name": "Entrega de Muebles y Equipos",
+                "price": "Desde ¥5,000",
+                "description": "Transporte de artículos grandes individuales como refrigeradores o sofás comprados en apps de segunda mano.",
+                "features": [
+                    "Envoltura protectora profesional",
+                    "Soporte para instalación",
+                    "Consulta para retiro de muebles viejos"
+                ]
+            },
+            "charter": {
+                "name": "Plan Charter de Medio Día",
+                "price": "Desde ¥18,000",
+                "description": "Uso flexible de hasta 4 horas. Perfecto para múltiples paradas, compras o mudanzas parciales.",
+                "features": [
+                    "Ruta flexible",
+                    "Distancia ilimitada dentro del tiempo",
+                    "Sin tarifas de espera"
+                ]
+            }
+        },
+        "vehicles": {
+            "keivan": {
+                "name": "Furgoneta Ligera",
+                "displayName": "Furgoneta",
+                "description": "Con techo y segura incluso en lluvia. Ideal para muebles y electrodomésticos grandes. Se aplican cargos por exceso de capacidad."
+            },
+            "keitruck": {
+                "name": "Camioneta Pick-up",
+                "displayName": "Pick-up",
+                "description": "Capaz de transportar artículos altos. Tipo camión fácil de cargar y descargar. Apto para materiales de construcción y equipaje."
+            }
+        }
+    }
+}

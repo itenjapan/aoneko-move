@@ -1,7 +1,10 @@
 import React from 'react';
 import { Truck, Shield, Clock, Heart, Phone } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer: React.FC = () => {
+    const { t } = useTranslation();
+
     return (
         <footer className="bg-slate-950 text-slate-500 py-24 border-t border-white/5 relative overflow-hidden">
             {/* Subtle light effect */}
@@ -19,9 +22,9 @@ const Footer: React.FC = () => {
                             <span className="text-white font-black text-3xl tracking-tighter">Aoneko Move</span>
                         </div>
                         <p className="text-sm leading-relaxed max-w-sm mb-10 text-slate-400 font-medium">
-                            東海3県エリアを中心に、24時間365日常に最適な配送ソリューションを。
+                            {t('footer.desc')}
                             <span className="block mt-2 opacity-60 font-normal italic">
-                                La elegancia del movimiento, la precisión de la tecnología.
+                                {t('footer.tagline')}
                             </span>
                         </p>
                         <div className="flex gap-3">
@@ -36,19 +39,19 @@ const Footer: React.FC = () => {
 
                     {/* Navigation Section */}
                     <div className="md:col-span-3">
-                        <h4 className="text-white font-bold mb-8 uppercase tracking-[0.3em] text-[10px] opacity-50">Menu / サービス</h4>
+                        <h4 className="text-white font-bold mb-8 uppercase tracking-[0.3em] text-[10px] opacity-50">{t('footer.menu_title')}</h4>
                         <ul className="space-y-5 text-sm">
-                            <li><a href="/quote" className="hover:text-brand-400 transition-all hover:translate-x-1 inline-block">即時見積もり</a></li>
-                            <li><a href="/tracking" className="hover:text-brand-400 transition-all hover:translate-x-1 inline-block">荷物追跡</a></li>
-                            <li><a href="/partner/register" className="hover:text-brand-400 transition-all hover:translate-x-1 inline-block text-slate-400 font-bold">パートナー・ドライバー募集</a></li>
+                            <li><a href="/quote" className="hover:text-brand-400 transition-all hover:translate-x-1 inline-block">{t('footer.quote', { defaultValue: t('nav.quote') })}</a></li>
+                            <li><a href="/tracking" className="hover:text-brand-400 transition-all hover:translate-x-1 inline-block">{t('footer.tracking', { defaultValue: t('nav.tracking') })}</a></li>
+                            <li><a href="/partner/register" className="hover:text-brand-400 transition-all hover:translate-x-1 inline-block text-slate-400 font-bold">{t('footer.partner_register', { defaultValue: t('nav.partner_register') })}</a></li>
                         </ul>
                     </div>
 
                     {/* Concierge/Contact Section */}
                     <div className="md:col-span-4 bg-white/5 p-8 rounded-[2.5rem] border border-white/10 backdrop-blur-sm self-start">
-                        <h4 className="text-brand-400 font-bold mb-6 uppercase tracking-[0.3em] text-[10px]">Concierge / お問い合わせ</h4>
+                        <h4 className="text-brand-400 font-bold mb-6 uppercase tracking-[0.3em] text-[10px]">{t('footer.contact_title')}</h4>
                         <div className="flex flex-col gap-1">
-                            <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1">フリーダイヤル</span>
+                            <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1">{t('footer.toll_free')}</span>
                             <a
                                 href="tel:0120502622"
                                 className="text-3xl font-black text-white hover:text-brand-400 transition-colors flex items-center gap-3 group"
@@ -57,8 +60,8 @@ const Footer: React.FC = () => {
                                 0120-502-622
                             </a>
                             <p className="text-[10px] text-slate-500 mt-4 leading-relaxed font-bold uppercase tracking-tighter">
-                                受付時間: 24時間365日対応<br />
-                                お困りの際はお気軽にお電話ください。
+                                {t('footer.hours')}<br />
+                                {t('footer.help_text')}
                             </p>
                         </div>
                     </div>
@@ -68,13 +71,13 @@ const Footer: React.FC = () => {
                 <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
                     <div className="flex flex-col gap-2">
                         <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-600">
-                            © 2026 Aoneko Move. Sophisticated Logistics.
+                            {t('footer.copyright')}
                         </p>
                     </div>
 
                     <div className="flex flex-col items-center md:items-end gap-3">
                         <div className="flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                            Made with <Heart size={12} className="text-rose-500 fill-rose-500 animate-pulse" /> in Japan
+                            {t('footer.made_with')} <Heart size={12} className="text-rose-500 fill-rose-500 animate-pulse" /> {t('footer.in_japan')}
                         </div>
                         <div className="text-[10px] font-mono text-slate-700 opacity-40 hover:opacity-100 transition-opacity tracking-widest cursor-default">
                             Memoria del Puente

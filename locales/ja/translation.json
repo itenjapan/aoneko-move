@@ -1,0 +1,114 @@
+{
+    "common": {
+        "loading": "読み込み中...",
+        "back": "戻る",
+        "submit": "送信"
+    },
+    "nav": {
+        "home": "ホーム",
+        "quote": "見積もり・配送",
+        "tracking": "追跡",
+        "admin": "管理パネル",
+        "driver": "ドライバー画面",
+        "dashboard": "マイページ",
+        "login": "ログイン",
+        "signup": "新規登録",
+        "partner_register": "ドライバー登録"
+    },
+    "hero": {
+        "badge": "次世代の配送体験へ",
+        "title_part1": "想いを運ぶ、",
+        "title_part2": "もっと自由に。",
+        "desc": "24時間365日、アプリひとつで即時手配。<br />洗練されたUIと確かな品質で、あなたの大切な荷物をお届けします。",
+        "cta_quote": "料金を確認・依頼",
+        "cta_tracking": "荷物を追跡"
+    },
+    "features": {
+        "title": "Aoneko Quality",
+        "subtitle": "スピード、透明性、そして信頼。すべてをシンプルに。",
+        "item1": {
+            "title": "即時マッチング",
+            "desc": "AIが最適なドライバーを瞬時に選定。急な配送依頼にもスマートに対応します。"
+        },
+        "item2": {
+            "title": "クリアな料金体系",
+            "desc": "距離と車両タイプに基づいた透明性の高い料金。隠れたコストはありません。"
+        },
+        "item3": {
+            "title": "リアルタイム追跡",
+            "desc": "GPS追跡により、荷物の現在地を可視化。到着予測も正確にお知らせします。"
+        }
+    },
+    "plans": {
+        "title": "人気の配送プラン",
+        "subtitle": "用途に合わせて選べる、お得な定額パッケージ",
+        "recommended": "おすすめ",
+        "select": "プランを選択",
+        "estimate": "目安"
+    },
+    "vehicles": {
+        "title": "選べる車両タイプ",
+        "subtitle": "用途に合わせて最適な一台を。",
+        "cta_all": "すべての料金を見る",
+        "base_fare": "基本料金",
+        "quote_cta": "この車両で見積もり"
+    },
+    "footer": {
+        "desc": "東海3県エリアを中心に、24時間365日常に最適な配送ソリューションを。",
+        "tagline": "La elegancia del movimiento, la precisión de la tecnología.",
+        "menu_title": "Menu / サービス",
+        "contact_title": "Concierge / お問い合わせ",
+        "toll_free": "フリーダイヤル",
+        "hours": "受付時間: 24時間365日対応",
+        "help_text": "お困りの際はお気軽にお電話ください。",
+        "copyright": "© 2026 Aoneko Move. Sophisticated Logistics.",
+        "made_with": "Made with",
+        "in_japan": "in Japan"
+    },
+    "constants": {
+        "plans": {
+            "single": {
+                "name": "単身引っ越しプラン",
+                "price": "¥12,000〜",
+                "description": "学生や単身赴任の方に最適。軽バン1台で、段ボール20個＋布団＋小家電などを運びます。",
+                "features": [
+                    "ドライバー作業補助あり",
+                    "ハンガーボックス貸出",
+                    "同乗可能(1名)"
+                ]
+            },
+            "furniture": {
+                "name": "家具・家電配送プラン",
+                "price": "¥5,000〜",
+                "description": "フリマアプリで購入した冷蔵庫やソファーなど、大型家具1点から対応します。",
+                "features": [
+                    "大型家具の養生",
+                    "設置まで対応",
+                    "不要家具の回収相談可"
+                ]
+            },
+            "charter": {
+                "name": "半日チャータープラン",
+                "price": "¥18,000〜",
+                "description": "4時間以内の自由な利用。複数箇所の配送や、買い出し・搬入など自由に使えます。",
+                "features": [
+                    "ルート自由",
+                    "時間内距離無制限",
+                    "待機料金なし"
+                ]
+            }
+        },
+        "vehicles": {
+            "keivan": {
+                "name": "Light Van",
+                "displayName": "軽バン",
+                "description": "屋根付きで雨天でも安心。大きな家具や家電の配送に最適です。規定量を超える荷物は追加料金が発生します。"
+            },
+            "keitruck": {
+                "name": "Pick-up",
+                "displayName": "軽トラック",
+                "description": "高さのある荷物も積載可能. 積み下ろしが容易なトラックタイプ. また、建築資材や引っ越し荷物の運搬も可能です。"
+            }
+        }
+    }
+}

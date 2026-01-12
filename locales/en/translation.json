@@ -1,0 +1,114 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "back": "Back",
+        "submit": "Submit"
+    },
+    "nav": {
+        "home": "Home",
+        "quote": "Quote & Delivery",
+        "tracking": "Tracking",
+        "admin": "Admin Panel",
+        "driver": "Driver App",
+        "dashboard": "My Page",
+        "login": "Login",
+        "signup": "Sign Up",
+        "partner_register": "Driver Registration"
+    },
+    "hero": {
+        "badge": "To the next generation of delivery",
+        "title_part1": "Delivering care,",
+        "title_part2": "with more freedom.",
+        "desc": "Instant dispatch with just one app, 24/7.<br />Delivering your precious luggage with a refined UI and guaranteed quality.",
+        "cta_quote": "Check Price & Request",
+        "cta_tracking": "Track Package"
+    },
+    "features": {
+        "title": "Aoneko Quality",
+        "subtitle": "Speed, transparency, and trust. Everything simplified.",
+        "item1": {
+            "title": "Instant Matching",
+            "desc": "AI instantly selects the optimal driver. Smart response to urgent delivery requests."
+        },
+        "item2": {
+            "title": "Clear Pricing",
+            "desc": "Transparent rates based on distance and vehicle type. No hidden costs."
+        },
+        "item3": {
+            "title": "Real-time Tracking",
+            "desc": "Visualize package location with GPS. Accurate arrival predictions provided."
+        }
+    },
+    "plans": {
+        "title": "Popular Delivery Plans",
+        "subtitle": "Affordable flat-rate packages tailored to your needs",
+        "recommended": "Recommended",
+        "select": "Select Plan",
+        "estimate": "Est."
+    },
+    "vehicles": {
+        "title": "Available Vehicles",
+        "subtitle": "The perfect vehicle for every purpose.",
+        "cta_all": "See all prices",
+        "base_fare": "Base Fare",
+        "quote_cta": "Quote with this vehicle"
+    },
+    "footer": {
+        "desc": "Providing optimal delivery solutions 24/7/365, centered in the Tokai 3rd prefecture area.",
+        "tagline": "The elegance of movement, the precision of technology.",
+        "menu_title": "Menu / Services",
+        "contact_title": "Concierge / Contact",
+        "toll_free": "Toll Free",
+        "hours": "Hours: 24/7 Available",
+        "help_text": "Please feel free to call us if you have any questions.",
+        "copyright": "© 2026 Aoneko Move. Sophisticated Logistics.",
+        "made_with": "Made with",
+        "in_japan": "in Japan"
+    },
+    "constants": {
+        "plans": {
+            "single": {
+                "name": "Single Move Plan",
+                "price": "From ¥12,000",
+                "description": "Ideal for students and single professionals. One light van covers about 20 cardboard boxes + futon + small appliances.",
+                "features": [
+                    "Driver assistance included",
+                    "Hanger box rental",
+                    "One passenger allowed"
+                ]
+            },
+            "furniture": {
+                "name": "Furniture & Appliance Delivery",
+                "price": "From ¥5,000",
+                "description": "Handling everything from a single large item like a refrigerator or sofa purchased on flea market apps.",
+                "features": [
+                    "Pro protective wrapping",
+                    "Installation support",
+                    "Furniture disposal consultation"
+                ]
+            },
+            "charter": {
+                "name": "Half-Day Charter Plan",
+                "price": "From ¥18,000",
+                "description": "Flexible use for up to 4 hours. Perfect for multiple drops, shopping, or move-ins.",
+                "features": [
+                    "Route flexibility",
+                    "Unlimited distance within time",
+                    "No waiting fees"
+                ]
+            }
+        },
+        "vehicles": {
+            "keivan": {
+                "name": "Light Van",
+                "displayName": "Light Van",
+                "description": "Roofed and secure even in rain. Ideal for large furniture and appliances. Surcharges apply for items exceeding standard capacity."
+            },
+            "keitruck": {
+                "name": "Pick-up Truck",
+                "displayName": "Pick-up",
+                "description": "Can carry tall items. Truck type easy for loading/unloading. Suitable for construction materials and moving luggage."
+            }
+        }
+    }
+}
