@@ -9,6 +9,7 @@ interface AuthContextType {
   signup: (name: string, email: string, password: string, phone: string) => Promise<void>;
   signupDriver: (name: string, email: string, password: string, phone: string, vehicleType: string, licensePlate: string) => Promise<void>;
   updateProfile: (data: Partial<User | Driver>) => Promise<void>;
+  updateAuth: (data: { email?: string; password?: string }) => Promise<void>;
   logout: () => void;
 }
 
@@ -96,13 +97,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
   };
 
+  const updateAuth = async (data: { email?: string; password?: string }) => {
+    setIsLoading(true);
+    // Simulate Supabase Update User delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    if (user) {
+      if (data.email) {
+        // In real Supabase: const { data, error } = await supabase.auth.updateUser({ email: data.email })
+        console.log(`[Supabase Mock] Updating Email to: ${data.email}`);
+        user.email = data.email;
+      }
+      if (data.password) {
+        // In real Supabase: const { data, error } = await supabase.auth.updateUser({ password: data.password })
+        console.log(`[Supabase Mock] Updating Password... (Secure)`);
+        user.password = data.password;
+      }
+
+      const updatedUser = { ...user } as User;
+      mockStore.updateUser(updatedUser);
+      setUser(updatedUser);
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+    }
+    setIsLoading(false);
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('currentUser');
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, signup, signupDriver, updateProfile, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, signup, signupDriver, updateProfile, updateAuth, logout }}>
       {children}
     </AuthContext.Provider>
   );
